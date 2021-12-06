@@ -7,26 +7,35 @@ import {CategoryEnum} from "../../enums/category.enum";
 import {ShopService} from "../../services/shop.service";
 import {ShopInterface} from "../../models/shop.interface";
 import {UserService} from "../../services/user.service";
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class ListComponent implements OnInit {
 
   products: ProductInterface[] | undefined;
   lists: ListInterface[] | undefined;
   shops: ShopInterface[] | undefined;
   imageCategory: any | undefined;
+  showBackButton!: boolean;
 
   constructor(
     private productService: ProductService, 
     private listService: ListService, 
     private shopService: ShopService, 
-    private userService: UserService) { }
+    private userService: UserService,
+    private router: Router) { }
 
   ngOnInit(): void {
+    if (this.router.url !== '/') {
+      this.showBackButton = true;
+      console.log("showBackButton: ", this.showBackButton);
+      console.log("this.router.url: ", this.router.url);
+      
+    }
     this.productService.getAllProducts().subscribe(data => {
       this.products = data;
       //this.calculateTotalPrice();
@@ -55,4 +64,5 @@ console.log(data);
   /*private calculateTotalPrice() {
 
   }*/
+
 }

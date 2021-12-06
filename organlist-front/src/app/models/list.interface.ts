@@ -1,7 +1,9 @@
+import { UserInterface } from "./user.interface";
+
 export interface ListInterface {
   id: string;
   name: string;
   description:string;
   favorite:boolean;
-  user:string; //creador de la lista
+  user:UserInterface; //creador de la lista
 }

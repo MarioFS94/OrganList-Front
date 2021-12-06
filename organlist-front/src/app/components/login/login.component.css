@@ -1,0 +1,12 @@
+hr{
+    position: relative;
+    bottom: 15px;
+}
+#link{
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+}
+form{
+    position: relative;
+}
