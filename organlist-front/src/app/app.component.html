@@ -1,27 +1,46 @@
-<!-- <app-product-list></app-product-list> -->
 <header>
     <div class="card-image" [routerLink]="['/home']" style="cursor: pointer;">
         <img class="img" src="./assets/logo.png" alt="Logo OrganList">
     </div>
 </header>
 
-<nav class="row align-items-center">
+<nav class="row align-items-center" style="margin-right: 0 !important;">
     <div class="col clearfix">
-        <button type="button" rel="tooltip" [routerLink]="['/new/list']" title="Crear lista"
+        <button type="button" [disabled]="!loggedUser" style="z-index: 9;" rel="tooltip" [routerLink]="['/new/lists']" title="Crear lista"
             class="btn btn-just-icon btn-simple btn-primary float-left ml-5" data-original-title="Crear lista">
             <i class="fas fa-clipboard-list"></i> Crear lista
         </button>
-        <button type="button" rel="tooltip" [routerLink]="['/login']" title="Iniciar sesion"
+        <div *ngIf="loggedUser" class="col clearfix">
+            <button type="button" [routerLink]="['/profile']" rel="tooltip" title="Perfil del usuario"
+                class="btn btn-just-icon btn-simple btn-primary float-right mr-5"                
+                data-original-title="Perfil del usuario">
+                <i class="fas fa-user-circle"></i> Perfil
+            </button>
+            <h2 class="float-right mr-5 mb-0">Hola {{loggedUser.name}}!</h2>            
+        </div>
+        <button type="button" rel="tooltip" *ngIf="!loggedUser" [routerLink]="['/login']" title="Iniciar sesion"
             class="btn btn-just-icon btn-simple btn-primary float-right mr-5" data-original-title="Iniciar sesion">
             <i class="fas fa-user"></i> Login
-        </button>
-        <!-- [hidden] = "showBackButton" [routerLink]="['/home']" -->
-        <button type="button" appBackButton [hidden] = "showBackButton" rel="tooltip" title="Volver al inicio"
-            class="btn btn-just-icon btn-simple btn-primary float-right mr-5" data-original-title="Volver al inicio">
-            <i class="fas fa-home"></i> Home
         </button>
     </div>
 </nav>
 
 <router-outlet></router-outlet>
-<!-- <app-list></app-list> -->
+
+<hr />
+<footer class="row align-items-center" style="margin-right: 0 !important;">
+    <div class="col clearfix">
+        <div class="float-left ml-5 mt-3">
+            <h4>&#9400; Copyright</h4>
+        </div>
+        <button type="button" rel="tooltip" (click)="logout()" *ngIf="loggedUser" title="Cerrar sesion"
+            class="btn btn-just-icon btn-simple btn-primary float-right mr-5" data-original-title="Cerrar sesion">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+
+        <button type="button" appBackButton [hidden]="showBackButton" rel="tooltip" title="Volver al inicio"
+            class="btn btn-just-icon btn-simple btn-primary float-right mr-5" data-original-title="Volver al inicio">
+            <i class="fas fa-home"></i> Volver
+        </button>
+    </div>
+</footer>

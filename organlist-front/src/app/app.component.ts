@@ -1,6 +1,7 @@
 import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common'
+import { UserInterface } from './models/user.interface';
 
 @Component({
   selector: 'app-root',
@@ -9,20 +10,27 @@ import { Location } from '@angular/common'
 })
 export class AppComponent implements OnInit {
   showBackButton!: boolean;
-
-  constructor(private router: Router, private location: Location) { }
+  loggedUser: UserInterface | undefined;
+  
+  constructor() { }
 
   ngOnInit(): void {
-    if (this.router.url == '/home') {
-      this.showBackButton = false;
-      console.log("showBackButton: ", this.showBackButton);
-      console.log("this.router.url: ", this.router.url);
 
+    let sessionUser = sessionStorage.getItem('loggedUser');
+    
+    if (sessionUser) {
+      this.loggedUser = JSON.parse(sessionUser);  
     }
+  
   }
 
-  back(): void {
-    this.location.back()
+  refresh(): void {
+    window.location.reload();
+  }
+
+  logout() {
+    sessionStorage.removeItem('loggedUser');
+    this.refresh();
   }
 
 }

@@ -9,6 +9,10 @@ import { ListComponent } from './components/list/list.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BackButtonDirective } from './directives/back-button.directive';
 import { LoginComponent } from './components/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegisterComponent } from './components/register/register.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { CreateListComponent } from './components/create-list/create-list.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +20,18 @@ import { LoginComponent } from './components/login/login.component';
     ProductListComponent,
     ListComponent,
     BackButtonDirective,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    ProfileComponent,
+    CreateListComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

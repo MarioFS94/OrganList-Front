@@ -16,6 +16,6 @@ export class UserService {
     return this.http.get<UserInterface[]>(this.urlAPI + '/' + id);
   }
   getUserByEmail(email: string): Observable<UserInterface> {
-    return this.http.get<UserInterface>(this.urlAPI + '/' + email);
+    return this.http.get<UserInterface>(this.urlAPI + '?email=' + email);
   }
 }

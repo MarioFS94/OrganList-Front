@@ -1,0 +1,41 @@
+<hr />
+<article class="col-md-12">
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Registro</legend>
+
+        <form [formGroup]="formReactive" (ngSubmit)="register(formReactive.value)">
+            <div class="form-group">
+                <label for="inputName">Nombre</label>
+                <input type="text" class="form-control" id="inputName" aria-describedby="nameHelp"
+                    placeholder="Enter name" required formControlName="name">
+            </div>
+            <div class="form-group">
+                <label for="inputEmail">Email</label>
+                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
+                    placeholder="Enter email" required formControlName="email">
+            </div>
+            <div class="form-group">
+                <label for="inputPhone">Teléfono</label>
+                <input type="tel" class="form-control" id="inputPhone" placeholder="Enter phone number"
+                    formControlName="phone" />
+            </div>
+            <div class="form-group">
+                <label for="inputPassword1">Password</label>
+                <input type="password" required formControlName="pass" class="form-control" id="inputPassword1"
+                    placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="inputPassword2">Repeat password</label>
+                <input type="password" required formControlName="pass2" class="form-control" id="inputPassword2"
+                    placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!formReactive.valid">Registro</button>
+            <div *ngIf="(formReactive.touched || formReactive.dirty) && formReactive.invalid" class="alert alert-danger alertError" role="alert">
+                Faltan datos
+            </div>
+            <div *ngIf="registerOK" class="alert alert-success" role="alert">
+                Registrado!!
+            </div>
+        </form>
+    </fieldset>
+</article>

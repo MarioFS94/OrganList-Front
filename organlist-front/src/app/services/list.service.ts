@@ -15,4 +15,13 @@ export class ListService {
   getAllLists(): Observable<ListInterface[]> {
     return this.http.get<ListInterface[]>(this.urlAPI);
   }
+
+  updateFavoriteList(listId:string): Observable<ListInterface[]> {
+    return this.http.patch<ListInterface[]>(this.urlAPI + "/favorite?listId=" + listId, undefined);
+  }
+  insertList(list: ListInterface): Observable<ListInterface> {
+    console.log('newList service: ', list);
+  
+    return this.http.post<ListInterface>(this.urlAPI, list);
+  }
 }
