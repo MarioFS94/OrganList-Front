@@ -36,12 +36,17 @@ export class LoginComponent implements OnInit {
   
           sessionStorage.setItem('loggedUser', JSON.stringify(data));
   
+          this.refresh();
           this.router.navigate(['/home']);
         } 
       });
     } else {
       this.formError = true;
     }
+  }
+
+  refresh(): void {
+    window.location.reload();
   }
 
 }

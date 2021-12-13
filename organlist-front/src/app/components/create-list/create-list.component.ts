@@ -2,7 +2,7 @@ import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ListInterface } from 'src/app/models/list.interface';
+import { ListClass } from 'src/app/models/list';
 import { ListService } from 'src/app/services/list.service';
 import { ShopService } from 'src/app/services/shop.service';
 
@@ -18,6 +18,7 @@ export class CreateListComponent implements OnInit {
   loggedUser: any;
   userName!: string;
   shops: any;
+  created: boolean = false;
 
   constructor(private listService: ListService, private shopService: ShopService, private router: Router) { }
 
@@ -37,16 +38,18 @@ export class CreateListComponent implements OnInit {
     this.shopService.getShops().subscribe(data => this.shops = data);
   }
 
-  createList(newList: ListInterface) {
+  createList(newList: ListClass) {
 
-    let realList!: ListInterface;
+    let realList: ListClass = new ListClass();
+    
     realList.name = newList.name;
     realList.description = newList.description;
     realList.user = this.loggedUser;
 
-    this.listService.insertList(newList).subscribe();
-    this.router.navigate(['home']);
-
+    this.listService.insertList(realList).subscribe();
+    
+    this.created = true;
+    //this.router.navigate(['home']);
 
   }
 

@@ -1,7 +1,6 @@
-import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common'
-import { UserInterface } from './models/user.interface';
+import { UserClass } from './models/user';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +9,9 @@ import { UserInterface } from './models/user.interface';
 })
 export class AppComponent implements OnInit {
   showBackButton!: boolean;
-  loggedUser: UserInterface | undefined;
+  loggedUser: UserClass | undefined;
   
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
 
@@ -28,9 +27,15 @@ export class AppComponent implements OnInit {
     window.location.reload();
   }
 
+  redirectTo(uri: string) {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    this.router.navigate([uri]));
+  }
+
   logout() {
     sessionStorage.removeItem('loggedUser');
     this.refresh();
+    this.redirectTo('/home');
   }
 
 }

@@ -1,0 +1,37 @@
+<article class="col-md-12">
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Añadir producto nuevo</legend>
+
+        <div *ngIf="registerOK" style = "text-align: center; font-weight: bold;" class="alert alert-success" role="alert">
+            Insertado!! <a [routerLink]="['/home']" class="ml-1" style="color: green;">Ir a inicio</a>
+        </div>
+        <form [formGroup]="formReactive" (ngSubmit)="addProduct(formReactive.value)">
+            <div class="form-group">
+                <label for="inputName">Nombre</label>
+                <input type="text" class="form-control" id="inputName" aria-describedby="nameHelp"
+                    placeholder="Enter name" required formControlName="name">
+            </div>
+            <div class="form-group">
+                <label for="inputDescription">Descripción</label>
+                <input type="text" class="form-control" id="inputDescription" aria-describedby="descriptionHelp"
+                    placeholder="Enter description" formControlName="description">
+            </div>
+            <div class="form-group">
+                <label for="inputCategory">Categoría</label>
+                <input type="text" class="form-control" id="inputCategory" placeholder="Enter category"
+                    formControlName="category" />
+            </div>
+            <div class="form-group">
+                <label for="inputPrice">Precio</label>
+                <input type="number" formControlName="price" class="form-control" id="inputPrice"
+                    placeholder="Precio">
+            </div>
+            <button type="submit" class="btn btn-primary" [disabled]="!formReactive.valid">
+                Añadir
+            </button>
+            <div *ngIf="(formReactive.touched || formReactive.dirty) && formReactive.invalid" class="alert alert-danger alertError" role="alert">
+                Faltan datos
+            </div>
+        </form>
+    </fieldset>
+</article>

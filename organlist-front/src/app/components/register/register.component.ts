@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserInterface } from 'src/app/models/user.interface';
+import { UserClass } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-register',
@@ -19,15 +20,26 @@ export class RegisterComponent implements OnInit {
   });
   registerOK: boolean = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userService: UserService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
-  register(newUser: UserInterface) {
+  register(newValues: any) {
 
-    this.registerOK = true;
-    this.router.navigate(['home']);
+    let newUser = new UserClass();
+    newUser.name = newValues.name;
+    newUser.email = newValues.email;
+    newUser.phone = newValues.phone;
+
+    if (newValues.pass === newValues.pass2) {
+      newUser.pass = newValues.pass;
+
+      this.userService.insertUser(newUser).subscribe();
+
+      this.registerOK = true;
+    } else {
+      this.formReactive.setErrors({ 'invalid': true });
+    }
 
   }
 

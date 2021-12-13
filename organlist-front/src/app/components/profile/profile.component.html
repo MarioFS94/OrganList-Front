@@ -5,21 +5,98 @@
                 <div class="card card-profile">
                     <div class="card-image">
                         <a href="#"> <img class="img" src="./assets/1.jpeg">
-                            <div class="card-caption"> Mario </div>
+                            <div class="card-caption"> {{loggedUser?.name}} - ({{loggedUser?.role}}) </div>
                         </a>
                     </div>
                     <div class="table">
                         <div style="margin:8% 1% 5% 1%">
-                            <h6 >mariofernandezs1@gmail.com</h6>
+                            <h6>{{loggedUser?.email}}</h6>
                         </div>
-                        <div  style="margin:5% 1%">
-                            <h3 >Listas favoritas</h3>
+                        <div style="margin:8% 1% 5% 1%">
+                            <h6>{{loggedUser?.phone}}</h6>
                         </div>
-                        <p class="card-description"> => Receta simple gazpacho</p>
+                        <button type="button" (click)="showEdit = true" rel="tooltip" title="Editar perfil del usuario"
+                            class="btn btn-primary" style="padding: 10px;"
+                            data-original-title="Editar perfil del usuario">
+                            Editar
+                        </button>
+                        <div *ngIf="!greatLenghtFav">
+                            <h3>Listas favoritas</h3>
+                            <div *ngFor="let favoriteList of favoriteLists" style="margin:5% 1%">
+                                <p class="card-description"> => {{favoriteList?.name}}</p>
+                            </div>
+                        </div>
+                        <div *ngIf="greatLenghtFav" class="table">                        
+                            <h3>No hay listas favoritas</h3>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <div *ngIf="isAdmin" class="col-md-4 pl-5">
+                <div class="card">
+                    <div *ngIf="!greatLenghtAll" class="table">                        
+                        <table class="table table-striped" style="color: black !important">
+                            <thead>
+                                <tr>
+                                    <th scope="col" colspan="2">Todas las listas</th>                        
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let list of allLists" style="margin:5% 1%">
+                                    <td>{{list?.name}}</td>
+                                    <td><i class="fas fa-trash-alt" (click)="deleteList(list.id)" style="color: red; cursor: pointer;"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div *ngIf="greatLenghtAll" class="table">                        
+                        <h3>No hay listas</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="showEdit" class="card ml-5" style="width: 60% !important;">
+                <fieldset class="scheduler-border" style="width: 95% !important;">
+                    <legend class="scheduler-border">Información del usuario</legend>
+
+                    <form [formGroup]="formReactive" (ngSubmit)="updateUserData(formReactive.value)">
+                        <div class="form-group">
+                            <label for="inputName">Nombre</label>
+                            <input type="text" required class="form-control" id="inputName" aria-describedby="nameHelp"
+                                placeholder="Enter name" formControlName="name">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail">Email</label>
+                            <input type="email" required class="form-control" id="inputEmail"
+                                aria-describedby="emailHelp" placeholder="Enter email" formControlName="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPhone">Teléfono</label>
+                            <input type="tel" class="form-control" id="inputPhone" placeholder="Enter phone number"
+                                formControlName="phone" />
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword1">Password</label>
+                            <input type="password" required formControlName="pass" class="form-control"
+                                id="inputPassword1" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword2">Repeat password</label>
+                            <input type="password" required formControlName="pass2" class="form-control"
+                                id="inputPassword2" placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-primary"
+                            [disabled]="!formReactive.valid">Modificar</button>
+
+                        <div *ngIf="(formReactive.touched || formReactive.dirty) && formReactive.invalid"
+                            class="alert alert-danger alertError" role="alert">
+                            Datos incorrectos
+                        </div>
+
+                    </form>
+                </fieldset>
+            </div>
         </div>
     </div>
 </div>

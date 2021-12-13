@@ -1,0 +1,28 @@
+<a href="#seccion" data-toggle="collapse">Collapsible</a>
+
+<div id="seccion" class="collapse">
+    <div class="well">
+        Hola
+    </div>
+</div>
+
+<ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+
+    <ngb-panel style="color: black !important; width: 45%; margin: 0 auto">
+        <ng-template ngbPanelTitle>
+            <span>&#9733; <b>Fancy</b> title &#9733;</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+            <table class="table table-striped">
+                <tbody>
+                    <tr *ngFor="let product of products" style="margin:5% 1%">
+                        <td>{{product.name}}</td>
+                        <td><i class="fas fa-plus-circle" (click)="addProductToList(product.id)"
+                                style="color: red; cursor: pointer;"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </ng-template>
+    </ngb-panel>
+
+</ngb-accordion>

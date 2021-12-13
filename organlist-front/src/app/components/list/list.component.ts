@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductInterface} from "../../models/product.interface";
 import {ProductService} from "../../services/product.service";
-import {ListInterface} from "../../models/list.interface";
+import {ListClass} from "../../models/list";
 import {ListService} from "../../services/list.service";
 import {CategoryEnum} from "../../enums/category.enum";
 import {ShopService} from "../../services/shop.service";
@@ -15,7 +15,7 @@ import {ShopInterface} from "../../models/shop.interface";
 export class ListComponent implements OnInit {
 
   products: ProductInterface[] | undefined;
-  lists: ListInterface[] | undefined;
+  lists: ListClass[] | undefined;
   shops: ShopInterface[] | undefined;
   imageCategory: any | undefined;
 
@@ -42,7 +42,7 @@ export class ListComponent implements OnInit {
     this.imageCategory = Object.values(CategoryEnum.SUPERMERCADO);
 
   }
-  updateFavoriteList(listId:string){
+  updateFavoriteList(listId:number){
     this.listService.updateFavoriteList(listId).subscribe(
       data => this.lists = data
     );

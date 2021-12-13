@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductInterface} from "../../models/product.interface";
-import {ProductService} from "../../services/product.service";
+import { ActivatedRoute } from '@angular/router';
+import { ProductInterface } from "../../models/product.interface";
+import { ProductService } from "../../services/product.service";
 
 @Component({
   selector: 'app-product-list',
@@ -10,18 +11,23 @@ import {ProductService} from "../../services/product.service";
 export class ProductListComponent implements OnInit {
 
   products: ProductInterface[] | undefined;
+  idList!: string | null;
   totalPrice: number = 0;
+  greatLength: boolean = false;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.productService.getAllProducts().subscribe(data => {
-      this.products = data;
-      this.products.forEach(product => {
-        this.totalPrice += product.price;
+    this.idList = this.route.snapshot.paramMap.get('idList');
+    this.productService.getProductsByList(this.idList).subscribe(
+      data => {
+        this.products = data;
+        this.greatLength = this.products.length < 1;
+        this.products.forEach(product => {
+          this.totalPrice += product.price;
+        });
       });
-    });
-    
+
   }
 
 }

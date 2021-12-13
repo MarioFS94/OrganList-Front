@@ -3,6 +3,9 @@
     <fieldset class="scheduler-border">
         <legend class="scheduler-border">Registro</legend>
 
+        <div *ngIf="registerOK" style = "text-align: center; font-weight: bold;" class="alert alert-success" role="alert">
+            Registrado!! <a [routerLink]="['/home']" class="ml-1" style="color: green;">Ir a inicio</a>
+        </div>
         <form [formGroup]="formReactive" (ngSubmit)="register(formReactive.value)">
             <div class="form-group">
                 <label for="inputName">Nombre</label>
@@ -32,9 +35,6 @@
             <button type="submit" class="btn btn-primary" [disabled]="!formReactive.valid">Registro</button>
             <div *ngIf="(formReactive.touched || formReactive.dirty) && formReactive.invalid" class="alert alert-danger alertError" role="alert">
                 Faltan datos
-            </div>
-            <div *ngIf="registerOK" class="alert alert-success" role="alert">
-                Registrado!!
             </div>
         </form>
     </fieldset>

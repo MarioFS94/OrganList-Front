@@ -1,26 +1,49 @@
 <article class="col-md-12">
-  <div style="width: 90%; margin: 0 auto;" class="mt-5" >
-    <h2>Productos</h2>
+  <div *ngIf="!greatLength">
+    <div style="width: 90%; margin: 0 auto;" class="mt-5">
+      <h2>Productos</h2>
+    </div>
+    <div style="width: 90%; margin: 0 auto;" class="mb-1 pb-5">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Esencial</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products">
+            <td>{{product.name}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.important ? 'SI' : 'NO'}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="mt-1">
+        <h3>Precio aproximado de la lista: {{totalPrice}} €</h3>
+        <button type="button" rel="tooltip" [routerLink]="['/new/product', idList]" title="Añadir nuevo producto"
+          class="btn btn-just-icon btn-simple btn-primary ml-5" data-original-title="Añadir nuevo producto">
+          <i class="fas fa-plus-circle"></i> Añadir nuevo producto
+        </button>
+        <button type="button" rel="tooltip" [routerLink]="['/products/lists', idList]" title="Añadir producto existente"
+          class="btn btn-just-icon btn-simple btn-primary ml-5" data-original-title="Añadir producto existente">
+          <i class="fas fa-plus-circle"></i> Añadir producto existente
+        </button>
+      </div>
+    </div>
   </div>
-  <div style="width: 90%; margin: 0 auto;" class="mb-1 pb-5">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Nombre</th>
-          <th scope="col">Descripción</th>
-          <th scope="col">Precio</th>
-          <th scope="col">Esencial</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of products">
-          <td>{{product.name}}</td>
-          <td>{{product.description}}</td>
-          <td>{{product.price}}</td>
-          <td>{{product.important ? 'SI' : 'NO'}}</td>
-        </tr>       
-      </tbody>
-    </table>
-    <div class="mt-1"><h3>Precio aproximado de la lista: {{totalPrice}} €</h3></div>
+  <div *ngIf="greatLength" class="d-flex justify-content-center mt-3 pb-4">
+    <h2 class="d-inline ">No hay productos</h2>
+    <button type="button" rel="tooltip" [routerLink]="['/new/product', idList]" title="Añadir nuevo producto"
+      class="btn btn-just-icon btn-simple btn-primary ml-5" data-original-title="Añadir nuevo producto">
+      <i class="fas fa-plus-circle"></i> Añadir nuevo producto
+    </button>
+    <button type="button" rel="tooltip" [routerLink]="['/products/lists', idList]" title="Añadir producto existente"
+      class="btn btn-just-icon btn-simple btn-primary ml-5" data-original-title="Añadir producto existente">
+      <i class="fas fa-plus-circle"></i> Añadir producto existente
+    </button>
   </div>
 </article>
